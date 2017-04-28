@@ -37,7 +37,11 @@
             <!-- 업로드 버튼 -->
             <li><a href="#uploadModal" role="button" data-toggle="modal"><i class="glyphicon glyphicon-cloud-upload"></i></a></li>
             <!-- 로그인 버튼 -->
-            <li><a href="#loginModal" role="button" data-toggle="modal"><i class="glyphicon glyphicon-user"></i></a></li>            
+            <li>
+            	<a href="#loginModal" role="button" data-toggle="modal">
+            	<span class="loginName">GUEST</span><i class="glyphicon glyphicon-user"></i> 
+            	</a>
+           	</li>            
            </ul>
         </div>	
      </div>	
@@ -59,6 +63,8 @@
           </div>
         </div>
       </div>
+      
+      
      <!-- <div class="col-sm-4">
       
         <div class="panel panel-default">
@@ -75,7 +81,7 @@
       </div>/col -->
     
     <br>
-    
+    <!-- footer -->
     <div class="clearfix"></div>
       
     <hr>
