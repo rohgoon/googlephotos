@@ -1,4 +1,5 @@
 $('#btnToggle').click(function(){
+	//alert("btnToggle on");
 	if ($(this).hasClass('on')) {
     	$('#main .col-md-6').addClass('col-md-4').removeClass('col-md-6');
     	$(this).removeClass('on');

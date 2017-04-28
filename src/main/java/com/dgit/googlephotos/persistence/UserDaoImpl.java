@@ -33,4 +33,9 @@ public class UserDaoImpl implements UserDao {
 		session.update(namespace+".updateUpath", vo);
 	}
 
+	@Override
+	public UserVO login(UserVO vo) throws Exception {		
+		return session.selectOne(namespace+".login", vo);
+	}
+
 }

@@ -11,6 +11,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css" rel="stylesheet">
 <link href="${pageContext.request.contextPath}/resources/bootstrap/css/gallery.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+	.guestMod{
+		height: 600px;
+		background: url("${pageContext.request.contextPath}/resources/images/guestbg2.png") no-repeat center;
+		background-size: contain;
+	}
+</style>
 </head>
 <div class="navbar navbar-fixed-top header">
  	<div class="col-md-12">
@@ -50,7 +57,23 @@
 <!--main-->
 <div class="container" id="main">
 	<div class="row">
-	
+	<c:if test="${login eq false || empty login }">		
+		<div class="guestMod"></div>
+	</c:if>
+	<c:if test="${login eq true }">		
+		<div class="col-sm-4 noimg" style="margin: 0 auto; float: inherit !important;">      
+        <div class="panel panel-default">
+          <div class="panel-thumbnail">
+          	<img src="${pageContext.request.contextPath}/resources/images/noimg.png" class="img-responsive">
+          </div>
+          <div class="panel-body">
+            <p class="lead">저장된 이미지가 없습니다.</p>
+            <p>업로드 아이콘을 클릭하여 이미지를 넣어 주세요.</p>
+          </div>
+        </div>
+      </div>
+	</c:if>
+	<%-- 
      <!-- no image default-->
       <div class="col-sm-4 noimg" style="margin: 0 auto; float: inherit !important;">      
         <div class="panel panel-default">
@@ -63,6 +86,7 @@
           </div>
         </div>
       </div>
+       --%>
       
       
      <!-- <div class="col-sm-4">
@@ -87,8 +111,8 @@
     <hr>
     <div class="col-md-12 text-center">
     	<p>
-    		<a href="#" target="_ext">DGIT 사진관리 시스템</a><br>
-    		<a href="#" target="_ext">노창균</a>
+    		<a href="#">DGIT Photo Management System</a><br>
+    		<a href="#">Roh Chang gyun</a>
     	</p>
     </div>
     <hr>
@@ -116,7 +140,7 @@
             </div>
             <div class="form-group">
               <button class="btn btn-primary btn-lg btn-block">Sign In</button>
-              <span class="pull-right"><a href="#">Register</a></span><span><a href="#">Need help?</a></span>
+              <span class="pull-right"><a href="#">Register</a></span>
             </div>
           </form>
       </div>
