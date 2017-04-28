@@ -6,7 +6,7 @@
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8"> 
 <meta charset="utf-8">
-<title>Bootstrap Google Plus Theme by @Bootply</title>
+<title>사진 관리 시스템</title>
 <meta name="generator" content="Bootply" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css" rel="stylesheet">
@@ -31,11 +31,11 @@
                 </div>
               </div>
           </form> <!-- 검색바 -->
-          <ul class="nav navbar-nav navbar-right">
-          	<!-- 업로드 버튼 -->
-            <li><a href="#loginModal" role="button" data-toggle="modal"><i class="glyphicon glyphicon-cloud-upload"></i></a></li>
+          <ul class="nav navbar-nav navbar-right">        	
             <!-- 갤러리버튼 -->
              <li><a href="#" id="btnToggle"><i class="glyphicon glyphicon-th-large"></i></a></li>
+            <!-- 업로드 버튼 -->
+            <li><a href="#uploadModal" role="button" data-toggle="modal"><i class="glyphicon glyphicon-cloud-upload"></i></a></li>
             <!-- 로그인 버튼 -->
             <li><a href="#loginModal" role="button" data-toggle="modal"><i class="glyphicon glyphicon-user"></i></a></li>            
            </ul>
@@ -124,8 +124,8 @@
 </div>
 
 
-<!--about modal-->
-<div id="aboutModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+<!--about modal은 업로드 modal로 수정예정-->
+<div id="uploadModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog">
   <div class="modal-content">
       <div class="modal-header">
@@ -145,6 +145,7 @@
   </div>
   </div>
 </div>
+
 <script type='text/javascript' src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script type='text/javascript' src="http://netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
 <!-- gallery.js -->
