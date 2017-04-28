@@ -19,4 +19,11 @@ ALTER TABLE user
 		PRIMARY KEY (
 			uno -- 회원번호
 		);
+insert into user(uid, uname, uemail, uphone, upassword)
+values ('u0000', '김일수','u0000@dgit.com', '010-111-1111','u0000');
 
+select * 
+from user
+where uno = 1;
+
+select * from user where uid = 'u0000' and upassword = 'u0000';
