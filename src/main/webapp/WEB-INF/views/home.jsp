@@ -16,7 +16,7 @@
  	<div class="col-md-12">
         <div class="navbar-header">
           
-          <a href="#" class="navbar-brand">Bootstrap</a>
+          <a href="#" class="navbar-brand">My Photos</a>
           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse1">
           <i class="glyphicon glyphicon-search"></i>
           </button>
@@ -30,53 +30,14 @@
                   <button class="btn btn-default btn-primary" type="submit"><i class="glyphicon glyphicon-search"></i></button>
                 </div>
               </div>
-          </form>
+          </form> <!-- 검색바 -->
           <ul class="nav navbar-nav navbar-right">
-             <li><a href="http://www.bootply.com" target="_ext">Bootply+</a></li>
-             <li>
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-bell"></i></a>
-                <ul class="dropdown-menu">
-                  <li><a href="#"><span class="badge pull-right">40</span>Link</a></li>
-                  <li><a href="#"><span class="badge pull-right">2</span>Link</a></li>
-                  <li><a href="#"><span class="badge pull-right">0</span>Link</a></li>
-                  <li><a href="#"><span class="label label-info pull-right">1</span>Link</a></li>
-                  <li><a href="#"><span class="badge pull-right">13</span>Link</a></li>
-                </ul>
-             </li>
+          	<!-- 업로드 버튼 -->
+            <li><a href="#loginModal" role="button" data-toggle="modal"><i class="glyphicon glyphicon-cloud-upload"></i></a></li>
+            <!-- 갤러리버튼 -->
              <li><a href="#" id="btnToggle"><i class="glyphicon glyphicon-th-large"></i></a></li>
-             <li><a href="#"><i class="glyphicon glyphicon-user"></i></a></li>
-           </ul>
-        </div>	
-     </div>	
-</div>
-<div class="navbar navbar-default" id="subnav">
-    <div class="col-md-12">
-        <div class="navbar-header">
-          
-          <a href="#" style="margin-left:15px;" class="navbar-btn btn btn-default btn-plus dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-home" style="color:#dd1111;"></i> Home <small><i class="glyphicon glyphicon-chevron-down"></i></small></a>
-          <ul class="nav dropdown-menu">
-              <li><a href="#"><i class="glyphicon glyphicon-user" style="color:#1111dd;"></i> Profile</a></li>
-              <li><a href="#"><i class="glyphicon glyphicon-dashboard" style="color:#0000aa;"></i> Dashboard</a></li>
-              <li><a href="#"><i class="glyphicon glyphicon-inbox" style="color:#11dd11;"></i> Pages</a></li>
-              <li class="nav-divider"></li>
-              <li><a href="#"><i class="glyphicon glyphicon-cog" style="color:#dd1111;"></i> Settings</a></li>
-              <li><a href="#"><i class="glyphicon glyphicon-plus"></i> More..</a></li>
-          </ul>
-          
-          
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse2">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          </button>
-      
-        </div>
-        <div class="collapse navbar-collapse" id="navbar-collapse2">
-          <ul class="nav navbar-nav navbar-right">
-             <li class="active"><a href="#">Posts</a></li>
-             <li><a href="#loginModal" role="button" data-toggle="modal">Login</a></li>
-             <li><a href="#aboutModal" role="button" data-toggle="modal">About</a></li>
+            <!-- 로그인 버튼 -->
+            <li><a href="#loginModal" role="button" data-toggle="modal"><i class="glyphicon glyphicon-user"></i></a></li>            
            </ul>
         </div>	
      </div>	
@@ -85,123 +46,45 @@
 <!--main-->
 <div class="container" id="main">
 	<div class="row">
-      
-      
-     <div class="col-sm-4">
+	
+     <!-- no image default-->
+      <div class="col-sm-4 noimg" style="margin: 0 auto; float: inherit !important;">      
+        <div class="panel panel-default">
+          <div class="panel-thumbnail">
+          	<img src="${pageContext.request.contextPath}/resources/images/noimg.png" class="img-responsive">
+          </div>
+          <div class="panel-body">
+            <p class="lead">저장된 이미지가 없습니다.</p>
+            <p>업로드 아이콘을 클릭하여 이미지를 넣어 주세요.</p>
+          </div>
+        </div>
+      </div>
+     <!-- <div class="col-sm-4">
       
         <div class="panel panel-default">
-          <div class="panel-thumbnail"><img src="/assets/example/bg_4.jpg" class="img-responsive"></div>
+          <div class="panel-thumbnail">
+          	<img src="/assets/example/bg_4.jpg" class="img-responsive">
+          </div>
           <div class="panel-body">
             <p class="lead">Social Good</p>
-            <p>1,200 Followers, 83 Posts</p>
-            
-            <p>
-              <img src="https://lh6.googleusercontent.com/-5cTTMHjjnzs/AAAAAAAAAAI/AAAAAAAAAFk/vgza68M4p2s/s28-c-k-no/photo.jpg" height="28px" width="28px">
-              <img src="https://lh4.googleusercontent.com/-6aFMDiaLg5M/AAAAAAAAAAI/AAAAAAAABdM/XjnG8z60Ug0/s28-c-k-no/photo.jpg" height="28px" width="28px">
-              <img src="https://lh4.googleusercontent.com/-9Yw2jNffJlE/AAAAAAAAAAI/AAAAAAAAAAA/u3WcFXvK-g8/s28-c-k-no/photo.jpg" height="28px" width="28px">
-            </p>
+            <p>1,200 Followers, 83 Posts</p>            
           </div>
         </div>
 
         
-      </div><!--/col-->
-      
-      <div class="col-sm-4">
-      
-      	<div class="panel panel-default">
-          <div class="panel-thumbnail"><img src="/assets/example/bg_5.jpg" class="img-responsive"></div>
-          <div class="panel-body">
-            <p class="lead">Urbanization</p>
-            <p>45 Followers, 13 Posts</p>
-            
-            <p>
-              <img src="https://lh3.googleusercontent.com/uFp_tsTJboUY7kue5XAsGA=s28" height="28px" width="28px">
-            </p>
-          </div>
-        </div>
-
-        
-      </div><!--/col-->
-      
-      <div class="col-sm-4">
-      
-      	<div class="panel panel-default">
-          <div class="panel-thumbnail"><img src="/assets/example/bg_6.jpg" class="img-responsive"></div>
-          <div class="panel-body">
-            <p class="lead">Full Glimpse</p>
-            <p>15.4k Followers, 477 Posts</p>
-            
-            <p>
-              <img src="https://lh6.googleusercontent.com/-5cTTMHjjnzs/AAAAAAAAAAI/AAAAAAAAAFk/vgza68M4p2s/s28-c-k-no/photo.jpg" height="28px" width="28px">
-              <img src="https://lh4.googleusercontent.com/-misNMXMfeLQ/AAAAAAAAAAI/AAAAAAAAAFw/IgHzdZ5Q4Rk/s28-c-k-no/photo.jpg" height="28px" width="28px">
-            </p>
-          </div>
-        </div>
-
-      
-      </div><!--/col-->
-   
-    
-      <div class="col-sm-4">
-      
-        <div class="panel panel-default">
-          <div class="panel-thumbnail"><img src="//placehold.it/450X300/EDEDED" class="img-responsive"></div>
-          <div class="panel-body">
-            <p class="lead">Hacker News</p>
-            <p>120k Followers, 900 Posts</p>
-            
-            <p>
-              <img src="https://lh4.googleusercontent.com/-6aFMDiaLg5M/AAAAAAAAAAI/AAAAAAAABdM/XjnG8z60Ug0/s28-c-k-no/photo.jpg" height="28px" width="28px">
-              <img src="https://lh4.googleusercontent.com/-9Yw2jNffJlE/AAAAAAAAAAI/AAAAAAAAAAA/u3WcFXvK-g8/s28-c-k-no/photo.jpg" height="28px" width="28px">
-            </p>
-          </div>
-        </div>
-
-        
-      </div><!--/col-->
-      
-      <div class="col-sm-4">
-      
-      	<div class="panel panel-default">
-          <div class="panel-thumbnail"><img src="//placehold.it/450X300/DD66DD/FFF" class="img-responsive"></div>
-          <div class="panel-body">
-            <p class="lead">Bootstrap Templates</p>
-            <p>902 Followers, 88 Posts</p>
-            
-            <p>
-              <img src="https://lh3.googleusercontent.com/uFp_tsTJboUY7kue5XAsGA=s28" height="28px" width="28px">
-              <img src="https://lh5.googleusercontent.com/-AQznZjgfM3E/AAAAAAAAAAI/AAAAAAAAABA/WEPOnkQS_20/s28-c-k-no/photo.jpg" height="28px" width="28px">
-            </p>
-          </div>
-        </div>
-
-        
-      </div><!--/col-->
-      
-      <div class="col-sm-4">
-      
-      	<div class="panel panel-default">
-          <div class="panel-thumbnail"><img src="//placehold.it/450X300/2222CC/EEE" class="img-responsive"></div>
-          <div class="panel-body">
-            <p class="lead">Social Media</p>
-            <p>19k Followers, 789 Posts</p>
-            
-            <p>
-              <img src="https://lh4.googleusercontent.com/-eSs1F2O7N1A/AAAAAAAAAAI/AAAAAAAAAAA/caHwQFv2RqI/s28-c-k-no/photo.jpg" height="28px" width="28px">
-              <img src="https://lh4.googleusercontent.com/-9Yw2jNffJlE/AAAAAAAAAAI/AAAAAAAAAAA/u3WcFXvK-g8/s28-c-k-no/photo.jpg" height="28px" width="28px">
-            </p>
-          </div>
-        </div>
-
-      
-      </div><!--/col-->
+      </div>/col -->
     
     <br>
     
     <div class="clearfix"></div>
       
     <hr>
-    <div class="col-md-12 text-center"><p><a href="http://www.bootply.com/download/90113" target="_ext">Download Google Plus Style Template</a><br><a href="http://bootply.com/templates" target="_ext">More Bootstrap Templates by @Bootply</a></p></div>
+    <div class="col-md-12 text-center">
+    	<p>
+    		<a href="#" target="_ext">DGIT 사진관리 시스템</a><br>
+    		<a href="#" target="_ext">노창균</a>
+    	</p>
+    </div>
     <hr>
     
   </div><!--/main row-->
