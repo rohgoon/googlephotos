@@ -95,4 +95,12 @@ public class HomeController {
 		service.registUser(vo);
 		response.sendRedirect(request.getContextPath()+"/");
 	}
+	@RequestMapping(value="/searchId", method=RequestMethod.GET)
+	public boolean searchId(String uid,HttpServletResponse response,HttpServletRequest request) throws Exception{
+		int count = service.searchId(uid);
+		if (count > 0) {
+			return false;
+		}		
+		return true;
+	}
 }
