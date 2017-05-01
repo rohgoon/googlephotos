@@ -173,8 +173,8 @@
       <div class="modal-body">
           <form class="form col-md-12 center-block signUpForm" action="register" method="post">
             <div class="input-group" style="margin-bottom: 15px;">
-              <input class="form-control input-lg" placeholder="ID" type="text" name="uid">
-              <span class = "input-group-addon">중복 검색</span>
+              <input class="form-control input-lg idInput" placeholder="ID" type="text" name="uid">
+              <span class = "input-group-addon searchId">중복 검색</span>
             </div>
             <div class="form-group">
               <input class="form-control input-lg" placeholder="Name" type="text" name="uname">
@@ -259,6 +259,27 @@ $('.signUp').click(function() {//signUpForm 예외처리
 		$('#suEmail').focusin;
 		return false;
 	}
+});
+$('.searchId').click(function() {
+	var uid = $('.idInput').val();
+	$.ajax({
+		uri: "searchId",
+		type: "get",
+		data:{"uid":uid},
+		dataType: boolean,
+		success:function(res){
+			if(res){
+				alert("사용 가능한 아이디 입니다.");
+			}else{
+				$('.idInput').val("");
+				$('.idInput').focusin;
+				alert("사용할 수 없는 아이디 입니다.");
+			}
+			return;
+		}
+		
+	});
+	
 });
 </script>
 </html>
