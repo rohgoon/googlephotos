@@ -38,7 +38,8 @@
                 </div>
               </div>
           </form> <!-- 검색바 -->
-          <ul class="nav navbar-nav navbar-right">        	
+          <ul class="nav navbar-nav navbar-right"> 
+          	
             <!-- 갤러리버튼 -->
              <li><a href="#" id="btnToggle"><i class="glyphicon glyphicon-th-large"></i></a></li>
             <!-- 업로드 버튼 -->
@@ -47,13 +48,13 @@
             <li>
            		<c:if test="${empty login }">
 	            	<a href="#loginModal" role="button" data-toggle="modal">	            			
-	            		<span class="loginName">LOGIN</span><i class="glyphicon glyphicon-user"></i> 
+	            		<span class="loginName">GUEST</span><i class="glyphicon glyphicon-user"></i> 
 	            	</a>
             	</c:if>
             	<!-- 로그아웃 -->
             	<c:if test="${!empty login  }">   
             		<a href="#" role="button" data-toggle="modal" id="logout">         	
-	            		<span class="loginName">LOGOUT</span>	<i class="glyphicon glyphicon-user"></i>
+	            		<span class="loginName">${login.uname }</span><i class="glyphicon glyphicon-user"></i>
 	            	</a> 
 	            </c:if>
            	</li>            
@@ -141,14 +142,57 @@
       <div class="modal-body">
           <form class="form col-md-12 center-block loginForm" action="login" method="post">
             <div class="form-group">
-              <input class="form-control input-lg" placeholder="ID" type="text" name="uid">
+              <input class="form-control input-lg" placeholder="ID" type="text" name="uid">              
             </div>
             <div class="form-group">
               <input class="form-control input-lg" placeholder="Password" type="password" name="upassword">
             </div>
             <div class="form-group">
               <button class="btn btn-primary btn-lg btn-block loginBtn">Sign In</button>
-              <span class="pull-right"><a href="#">Register</a></span>
+              <span class="pull-right"><a href="#registerModal"  data-toggle="modal">Register</a></span>
+            </div>
+          </form>
+      </div>
+      <div class="modal-footer">
+          <div class="col-md-12">
+          <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+		  </div>	
+      </div>
+  </div>
+  </div>
+</div>
+
+<!--user register modal-->
+<div id="registerModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+  <div class="modal-content">
+      <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          <h2 class="text-center">Register</h2>
+      </div>
+      <div class="modal-body">
+          <form class="form col-md-12 center-block signUpForm" action="register" method="post">
+            <div class="input-group" style="margin-bottom: 15px;">
+              <input class="form-control input-lg" placeholder="ID" type="text" name="uid">
+              <span class = "input-group-addon">중복 검색</span>
+            </div>
+            <div class="form-group">
+              <input class="form-control input-lg" placeholder="Name" type="text" name="uname">
+            </div>
+            <div class="form-group">
+              <input class="form-control input-lg" placeholder="Password" type="password" name="upassword" id="upw">
+            </div>
+            <div class="form-group">
+              <input class="form-control input-lg" placeholder="Confirm Password" type="password" id="upwConfirm">
+            </div>
+            <div class="form-group">
+              <input class="form-control input-lg" placeholder="Email" type="email" name="uemail" id="suEmail">
+            </div>
+            <div class="form-group">
+              <input class="form-control input-lg" placeholder="Phone" type="tel" name="uphone">
+            </div>
+            <div class="form-group">
+              <button class="btn btn-primary btn-lg btn-block signUp">Sign Up</button>              
             </div>
           </form>
       </div>
@@ -190,7 +234,31 @@
 <script src="${pageContext.request.contextPath}/resources/bootstrap/js/gallery.js" type="text/javascript"></script>
 <script type="text/javascript">
 $('#logout').click(function() {
-	location.href="${pageContext.request.contextPath}/logout";
+	var logout = confirm("로그아웃 하시겠습니까?");
+	if(logout){
+		location.href="${pageContext.request.contextPath}/logout";
+		return true;
+	}else{
+		return false;
+	}	
+});
+$('.signUp').click(function() {//signUpForm 예외처리
+	var $upw = $('#upw').val();
+	var $upwConfirm = $('#upwConfirm').val();
+	var $suEmail = $('#suEmail').val();
+	var sueArr = $suEmail.split('@');
+	if ($upw != $upwConfirm) {
+		alert("비밀번호가 일치하지 않습니다.");
+		$('#upw').val("");
+		$('#upwConfirm').val("");
+		$('#upw').focusin;
+		return false;
+	}else if(sueArr.length != 2 || sueArr[1].split(".").length != 2){
+		alert("이메일 형식이 맞지 않습니다.");
+		$('#suEmail').val("");
+		$('#suEmail').focusin;
+		return false;
+	}
 });
 </script>
 </html>

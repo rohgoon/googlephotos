@@ -1,5 +1,6 @@
 package com.dgit.googlephotos;
 
+import java.io.File;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.util.Date;
@@ -81,4 +82,17 @@ public class HomeController {
 	}
 	//upload
 	//register
+	@RequestMapping(value="/register", method=RequestMethod.POST)
+	public void registUserPOST(UserVO vo, Model model,HttpServletResponse response,HttpServletRequest request) throws Exception{
+		
+		File dir = new File(uploadPath + "/"+vo.getUid());
+		if (!dir.exists()) {
+			dir.mkdirs();
+		}
+		vo.setUpath(uploadPath+"/"+vo.getUid());		
+		
+		
+		service.registUser(vo);
+		response.sendRedirect(request.getContextPath()+"/");
+	}
 }

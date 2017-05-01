@@ -42,7 +42,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 			LOGGER.info("new login success..........");
 			session.setAttribute(LOGIN, userVO);
 			Object dest = session.getAttribute("dest");
-			String path = dest!=null?(String)dest:request.getContextPath();			
+			String path = dest!=null?(String)dest:request.getContextPath();
 			response.sendRedirect(path); //home
 			
 		}
