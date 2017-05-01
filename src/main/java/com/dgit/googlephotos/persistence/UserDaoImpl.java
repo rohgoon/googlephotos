@@ -38,4 +38,9 @@ public class UserDaoImpl implements UserDao {
 		return session.selectOne(namespace+".login", vo);
 	}
 
+	@Override
+	public int searchId(String uid) throws Exception {
+		return session.selectOne(namespace+".searchId", uid);
+	}
+
 }

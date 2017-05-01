@@ -21,6 +21,9 @@ public class UserServiceImpl implements UserService{
 	public void registUser(UserVO vo) throws Exception {
 		dao.insert(vo);
 	}
-	
-	
+
+	@Override
+	public int searchId(String uid) throws Exception {
+		return dao.searchId(uid);
+	}
 }
