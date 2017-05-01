@@ -174,7 +174,7 @@
           <form class="form col-md-12 center-block signUpForm" action="register" method="post">
             <div class="input-group" style="margin-bottom: 15px;">
               <input class="form-control input-lg idInput" placeholder="ID" type="text" name="uid">
-              <span class = "input-group-addon searchId">중복 검색</span>
+              <span class = "bnt input-group-addon searchId">중복 검색</span>
             </div>
             <div class="form-group">
               <input class="form-control input-lg" placeholder="Name" type="text" name="uname">

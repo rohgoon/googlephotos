@@ -13,10 +13,7 @@ CREATE TABLE user (
 );
 
 -- 회원
-ALTER TABLE user
-	ADD
-		
-		PRIMARY KEY (
+ALTER TABLE user add PRIMARY KEY (
 			uno -- 회원번호
 		);
 insert into user(uid, uname, uemail, uphone, upassword)
