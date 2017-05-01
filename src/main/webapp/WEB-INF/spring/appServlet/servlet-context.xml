@@ -29,18 +29,16 @@
 	
 	<beans:bean id="loginInterceptor" class="com.dgit.googlephotos.interceptor.LoginInterceptor"></beans:bean>
 	<beans:bean id="authInterceptor" class="com.dgit.googlephotos.interceptor.AuthInterceptor"></beans:bean>
-	<!-- <interceptors>
+	<interceptors>
 		<interceptor>
-			<mapping path="/user/loginPost"/>
+			<mapping path="/login"/>
 			<beans:ref bean="loginInterceptor"/>
 		</interceptor>
 		<interceptor>
-			<mapping path="/sboard/register"/>
-			<mapping path="/sboard/modify"/>
-			<mapping path="/sboard/remove"/>
+			<mapping path="/upload"/>
 			<beans:ref bean="authInterceptor"/>
 		</interceptor>
-	</interceptors> -->
+	</interceptors>
 	
 	
 	<context:component-scan base-package="com.dgit.googlephotos" />

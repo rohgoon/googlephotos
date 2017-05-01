@@ -5,6 +5,7 @@ import java.text.DateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import javax.annotation.Resource;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -29,6 +30,8 @@ import com.dgit.googlephotos.service.UserService;
 public class HomeController {
 	@Inject
 	private UserService service;
+	@Resource(name="uploadPath") 
+	private String uploadPath;
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
@@ -48,19 +51,21 @@ public class HomeController {
 		
 		return "home";
 	}
-	@RequestMapping(value="/login", method=RequestMethod.GET)
-	public void loginGET(@ModelAttribute("dto") UserVO dto){
-		logger.info("login GET....");
-		
-	}
-	@RequestMapping(value="/loginPost", method=RequestMethod.POST)
-	public void loginPOST(UserVO dto, Model model) throws Exception{
+	@RequestMapping(value="/login", method=RequestMethod.POST)
+	public String loginPOST(UserVO dto, Model model,HttpServletResponse response,HttpServletRequest request) throws Exception{
 		logger.info("login POST....");
 		UserVO vo = service.login(dto);
+		
 		if (vo == null) {
-			return;
-		}
+			logger.info("login is null....");
+			return "home";
+		}		
 		model.addAttribute("userVO", vo);
+		logger.info("addAttribute login....");
+		//response.sendRedirect(request.getContextPath()+"/");
+		//로그인시 폴더 이미지파일 불러오기.
+		return "login";
+		
 	}
 	@RequestMapping(value="/logout", method=RequestMethod.GET)
 	public void logoutGET(@ModelAttribute("dto") UserVO dto,HttpServletResponse response,HttpServletRequest request) throws IOException{
@@ -74,4 +79,6 @@ public class HomeController {
 			response.sendRedirect(request.getContextPath()+"/");
 		}
 	}
+	//upload
+	//register
 }

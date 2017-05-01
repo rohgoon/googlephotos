@@ -7,5 +7,5 @@ $('#btnToggle').click(function(){
   	else {
     	$('#main .col-md-4').addClass('col-md-6').removeClass('col-md-4');
       	$(this).addClass('on');
-  	}
+  	}	
 });

@@ -46,7 +46,13 @@
             <!-- 로그인 버튼 -->
             <li>
             	<a href="#loginModal" role="button" data-toggle="modal">
-            	<span class="loginName">GUEST</span><i class="glyphicon glyphicon-user"></i> 
+            	<c:if test="${empty login }">		
+            		<span class="loginName">GUEST</span>
+            	</c:if>
+            	<c:if test="${!empty login  }">            	
+            		<span class="loginName">${userVO.uname }</span>	
+            	</c:if>
+            	<i class="glyphicon glyphicon-user"></i> 
             	</a>
            	</li>            
            </ul>
@@ -57,10 +63,10 @@
 <!--main-->
 <div class="container" id="main">
 	<div class="row">
-	<c:if test="${login eq false || empty login }">		
+	<c:if test="${empty login }">		
 		<div class="guestMod"></div>
 	</c:if>
-	<c:if test="${login eq true }">		
+	<c:if test="${!empty login}">		
 		<div class="col-sm-4 noimg" style="margin: 0 auto; float: inherit !important;">      
         <div class="panel panel-default">
           <div class="panel-thumbnail">
@@ -131,15 +137,15 @@
           <h2 class="text-center"><img src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=100" class="img-circle"><br>Login</h2>
       </div>
       <div class="modal-body">
-          <form class="form col-md-12 center-block">
+          <form class="form col-md-12 center-block loginForm" action="login" method="post">
             <div class="form-group">
-              <input class="form-control input-lg" placeholder="Email" type="text">
+              <input class="form-control input-lg" placeholder="ID" type="text" name="uid">
             </div>
             <div class="form-group">
-              <input class="form-control input-lg" placeholder="Password" type="password">
+              <input class="form-control input-lg" placeholder="Password" type="password" name="upassword">
             </div>
             <div class="form-group">
-              <button class="btn btn-primary btn-lg btn-block">Sign In</button>
+              <button class="btn btn-primary btn-lg btn-block loginBtn">Sign In</button>
               <span class="pull-right"><a href="#">Register</a></span>
             </div>
           </form>

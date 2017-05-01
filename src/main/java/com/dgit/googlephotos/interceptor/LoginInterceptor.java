@@ -35,6 +35,8 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 			ModelAndView modelAndView) throws Exception {
 		LOGGER.info("post Handle..........");
 		HttpSession session = request.getSession();
+		LOGGER.info("modelAndView:" +modelAndView+"..........");
+		LOGGER.info("getModel : " +modelAndView.getModel()+"..........");
 		Object userVO = modelAndView.getModel().get("userVO");
 		if (userVO != null) {
 			LOGGER.info("new login success..........");
