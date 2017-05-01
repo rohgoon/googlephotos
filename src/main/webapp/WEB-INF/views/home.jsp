@@ -45,15 +45,17 @@
             <li><a href="#uploadModal" role="button" data-toggle="modal"><i class="glyphicon glyphicon-cloud-upload"></i></a></li>
             <!-- 로그인 버튼 -->
             <li>
-            	<a href="#loginModal" role="button" data-toggle="modal">
-            	<c:if test="${empty login }">		
-            		<span class="loginName">GUEST</span>
+           		<c:if test="${empty login }">
+	            	<a href="#loginModal" role="button" data-toggle="modal">	            			
+	            		<span class="loginName">LOGIN</span><i class="glyphicon glyphicon-user"></i> 
+	            	</a>
             	</c:if>
-            	<c:if test="${!empty login  }">            	
-            		<span class="loginName">${userVO.uname }</span>	
-            	</c:if>
-            	<i class="glyphicon glyphicon-user"></i> 
-            	</a>
+            	<!-- 로그아웃 -->
+            	<c:if test="${!empty login  }">   
+            		<a href="#" role="button" data-toggle="modal" id="logout">         	
+	            		<span class="loginName">LOGOUT</span>	<i class="glyphicon glyphicon-user"></i>
+	            	</a> 
+	            </c:if>
            	</li>            
            </ul>
         </div>	
@@ -186,4 +188,9 @@
 <script type='text/javascript' src="http://netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
 <!-- gallery.js -->
 <script src="${pageContext.request.contextPath}/resources/bootstrap/js/gallery.js" type="text/javascript"></script>
+<script type="text/javascript">
+$('#logout').click(function() {
+	location.href="${pageContext.request.contextPath}/logout";
+});
+</script>
 </html>

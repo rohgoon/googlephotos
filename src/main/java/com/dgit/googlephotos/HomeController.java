@@ -68,7 +68,7 @@ public class HomeController {
 		
 	}
 	@RequestMapping(value="/logout", method=RequestMethod.GET)
-	public void logoutGET(@ModelAttribute("dto") UserVO dto,HttpServletResponse response,HttpServletRequest request) throws IOException{
+	public void logoutGET(HttpServletResponse response,HttpServletRequest request) throws IOException{
 		logger.info("logout GET....");
 		
 		HttpSession session = request.getSession();
