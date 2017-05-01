@@ -173,7 +173,7 @@
       <div class="modal-body">
           <form class="form col-md-12 center-block signUpForm" action="register" method="post">
             <div class="input-group" style="margin-bottom: 15px;">
-              <input class="form-control input-lg idInput" placeholder="ID" type="text" name="uid">
+              <input class="form-control input-lg" placeholder="ID" type="text" name="uid" id="idInput">
               <span class = "bnt input-group-addon searchId">중복 검색</span>
             </div>
             <div class="form-group">
@@ -261,21 +261,28 @@ $('.signUp').click(function() {//signUpForm 예외처리
 	}
 });
 $('.searchId').click(function() {
-	var uid = $('.idInput').val();
+	var uid = $('#idInput').val();
+	if(uid == ""){
+		alert("아이디를 먼저 입력해 주세요.");
+		$('#idInput').focusin;
+		return false;
+	}
 	$.ajax({
-		uri: "searchId",
+		url: "${pageContext.request.contextPath}/searchId",
 		type: "get",
 		data:{"uid":uid},
-		dataType: boolean,
+		dataType: "json",
+		contentType: "application/json",
 		success:function(res){
-			if(res){
+			if(res.checkId == "0"){
+				alert(res.checkId);
 				alert("사용 가능한 아이디 입니다.");
 			}else{
-				$('.idInput').val("");
-				$('.idInput').focusin;
-				alert("사용할 수 없는 아이디 입니다.");
+				$('#idInput').val("");
+				$('#idInput').focusin;
+				alert("이미 존재하는 아이디 입니다.");
 			}
-			return;
+			return true;
 		}
 		
 	});

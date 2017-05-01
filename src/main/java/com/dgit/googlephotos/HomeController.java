@@ -4,7 +4,9 @@ import java.io.File;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.inject.Inject;
@@ -16,9 +18,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.dgit.googlephotos.domain.UserVO;
 import com.dgit.googlephotos.interceptor.LoginInterceptor;
@@ -96,11 +98,18 @@ public class HomeController {
 		response.sendRedirect(request.getContextPath()+"/");
 	}
 	@RequestMapping(value="/searchId", method=RequestMethod.GET)
-	public boolean searchId(String uid,HttpServletResponse response,HttpServletRequest request) throws Exception{
+	@ResponseBody
+	public Map<String, String> searchId(String uid) throws Exception{
+		logger.info("searchId GET>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+uid);
 		int count = service.searchId(uid);
+		Map<String, String> map = new HashMap<>();
 		if (count > 0) {
-			return false;
-		}		
-		return true;
+			map.put("checkId", "1");
+		}else{
+			map.put("checkId", "0");//0일때 사용가능
+		}
+		
+		
+		return map;
 	}
 }
