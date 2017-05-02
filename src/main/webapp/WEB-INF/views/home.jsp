@@ -19,6 +19,11 @@
 		background: url("${pageContext.request.contextPath}/resources/images/guestbg2.png") no-repeat center;
 		background-size: contain;
 	}
+	
+	.file {
+	  visibility: hidden;
+	  position: absolute;
+	}
 </style>
 </head>
 <div class="navbar navbar-fixed-top header">
@@ -222,15 +227,22 @@
   <div class="modal-content">
       <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-          <h2 class="text-center">Upload Your Images</h2>
+          <h2 class="text-center">Upload</h2>
       </div>
       <div class="modal-body">
           <div class="col-md-12 text-center">
-            <form class="form col-md-12 center-block uploadForm" action="upload" method="post" enctype="multipart/form-data">                     
-            <div class="form-group">
-              <input class="form-control input-lg" type="file" name="files" multiple="multiple">
-              <input type="hidden" name="upath" value="${login.upath }">
-            </div>
+            <form class="form col-md-12 center-block uploadForm" action="upload" method="post" enctype="multipart/form-data"> 
+            <input type="hidden" name="upath" value="${login.upath }">            
+             <div class="form-group">
+			    <input type="file" name="files" class="file"  multiple="multiple">
+			    <div class="input-group col-xs-12" style="padding: 0;">
+			      <span class="input-group-addon"><i class="glyphicon glyphicon-picture"></i></span>
+			      <input type="text" class="form-control input-lg" disabled placeholder="Upload Image">
+			      <span class="input-group-btn">
+			        <button class="browse btn btn-primary input-lg" type="button"><i class="glyphicon glyphicon-search"></i> Browse</button>
+			      </span>
+			    </div>
+			  </div>            
             <div class="form-group">
               <button class="btn btn-primary btn-lg btn-block">Upload</button>              
             </div>
@@ -325,5 +337,13 @@ $('.delCard').each(function(i, element) {
 		
 	});
 });
+
+$(document).on('click', '.browse', function(){
+	  var file = $(this).parent().parent().parent().find('.file');
+	  file.trigger('click');
+	});
+$(document).on('change', '.file', function(){
+	  $(this).parent().find('.form-control').val($(this).val().replace(/C:\\fakepath\\/i, ''));
+	 });
 </script>
 </html>

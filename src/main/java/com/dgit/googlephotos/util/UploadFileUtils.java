@@ -21,7 +21,7 @@ public class UploadFileUtils {
 		String thumbnailName = "";
 		BufferedImage sourceImg = ImageIO.read(new File(uploadPath, filename));//원본 가져오기
 		
-		BufferedImage destImg = Scalr.resize(sourceImg, Scalr.Method.AUTOMATIC, Scalr.Mode.FIT_TO_HEIGHT, 200);//썸네일 이미지 데이터 만들기
+		BufferedImage destImg = Scalr.resize(sourceImg, Scalr.Method.AUTOMATIC, Scalr.Mode.FIT_TO_HEIGHT, 400);//썸네일 이미지 데이터 만들기
 		
 		thumbnailName = uploadPath+"/s_"+filename; //s_일시_시간_원본파일명
 		File newFile = new File(thumbnailName);
