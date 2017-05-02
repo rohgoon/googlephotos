@@ -59,17 +59,24 @@ public class HomeController {
 		HttpSession session = request.getSession();
 		if (session.getAttribute(LoginInterceptor.LOGIN) != null) {
 			UserVO vo = (UserVO) session.getAttribute(LoginInterceptor.LOGIN);
-			File f = new File(vo.getUpath()); 
-			File [] files = f.listFiles(); //uid+"s_"+filename
-			List<String> renames = new ArrayList<>();
-			for (File file : files) {
-				String str = file.getPath();
-				String[] rnArr = str.split("\\\\");
-				if (rnArr[rnArr.length-1].split("_").length == 3) {
-					renames.add(rnArr[rnArr.length-1]);
-				}				
+			try{
+				File f = new File(vo.getUpath()); 
+				File [] files = f.listFiles(); //uid+"s_"+filename
+				List<String> renames = new ArrayList<>();
+				for (File file : files) {
+					String str = file.getPath();
+					String[] rnArr = str.split("\\\\");
+					if (rnArr[rnArr.length-1].split("_").length == 3) {
+						renames.add(rnArr[rnArr.length-1]);
+					}				
+				}
+				model.addAttribute("fileList", renames);
+			}catch(NullPointerException e){				
+				session.removeAttribute(LoginInterceptor.LOGIN);				
+				logger.info("clear login data..........");
+				
+				return "home";
 			}
-			model.addAttribute("fileList", renames);
 		}
 		
 		return "home";
@@ -78,9 +85,19 @@ public class HomeController {
 	public String loginPOST(UserVO dto, Model model,HttpServletResponse response,HttpServletRequest request) throws Exception{
 		logger.info("login POST....");
 		logger.info("UserVO dto...."+dto.toString());
-		UserVO vo = service.login(dto);
-		
-		if (vo == null) {
+		try{
+			UserVO vo = service.login(dto);
+			if (vo == null) {
+				logger.info("login is null....");
+				HttpSession session = request.getSession();
+				if (session.getAttribute(LoginInterceptor.LOGIN) != null) {
+					session.removeAttribute(LoginInterceptor.LOGIN);				
+					logger.info("clear login data..........");
+				}
+				return "home";
+			}
+			model.addAttribute("userVO", vo);
+		}catch(Exception e){
 			logger.info("login is null....");
 			HttpSession session = request.getSession();
 			if (session.getAttribute(LoginInterceptor.LOGIN) != null) {
@@ -89,7 +106,8 @@ public class HomeController {
 			}
 			return "home";
 		}
-		model.addAttribute("userVO", vo);
+		
+		
 		logger.info("addAttribute login....");
 		//response.sendRedirect(request.getContextPath()+"/");
 		//로그인시 폴더 이미지파일 불러오기.

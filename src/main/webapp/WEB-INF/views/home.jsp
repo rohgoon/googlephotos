@@ -327,13 +327,14 @@ $('.delCard').each(function(i, element) {
 		var filename = $(element).val();
 		var cf = confirm('정말로 삭제 하시겠습니까?');
 		if(cf){
-			$('.imgCard').eq(i).remove();
+			
 			$.ajax({
 				url: "${pageContext.request.contextPath}/delCard",
 				type: "get",
 				data:{"filename":filename},
 				dataType: "json",
-				success:function(res){					
+				success:function(res){	
+					$('.imgCard').eq(i).remove();
 					return true;	
 				}
 			});
