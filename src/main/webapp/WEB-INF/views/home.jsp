@@ -90,6 +90,8 @@
 	    	 <c:forEach var="filename" items="${fileList }">
 		     	<div class="col-sm-4">      
 			        <div class="panel panel-default">
+			        <c:set var="bigImg" value="${login.uid}/${filename }"></c:set>
+			        <a href="displayFile?filename=${bigImg }">
 			          <div class="panel-thumbnail">
 			          <c:set var="fnItem" value="${login.uid}/s_${filename }"></c:set>
 			          	<img src="displayFile?filename=${fnItem }" class="img-responsive" style="width: 100%;">			          	
@@ -106,6 +108,7 @@
 		          		  <c:if test="${g.count == 2}"><p><small>Time : ${fname}</small></p></c:if>
 		          		</c:forEach>			                     
 			          </div>
+			         </a>
 			        </div>        
 	     		 </div>
      		</c:forEach>
