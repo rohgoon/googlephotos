@@ -110,7 +110,7 @@ public class HomeController {
 	}
 	//upload
 	@RequestMapping(value="/upload", method=RequestMethod.POST)
-	public String multiUploadResult(List<MultipartFile> files,HttpServletResponse response, HttpServletRequest request, Model model) throws Exception{
+	public void multiUploadResult(List<MultipartFile> files,HttpServletResponse response, HttpServletRequest request, Model model) throws Exception{
 		//
 		UserVO vo =new UserVO();
 		HttpSession session = request.getSession();
@@ -141,7 +141,8 @@ public class HomeController {
 		model.addAttribute("files", fileNames);
 		model.addAttribute("thumbFiles", thumbFiles);
 		
-		return "home";
+		model.addAttribute("userVO", vo);
+		response.sendRedirect(request.getContextPath()+"/");
 	}
 	@ResponseBody
 	@RequestMapping("/displayFile")

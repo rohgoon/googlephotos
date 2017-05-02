@@ -107,8 +107,7 @@
 		          		 <c:if test="${g.count == 2}"><small>Time : ${fname}</small></c:if>
 		          		</c:forEach>
 		          		<button class="btn delCard" style="float: right;" value="${filename }">Delete</button>		          		 
-			          </div>
-			         
+			          </div>			         
 			        </div>        
 	     		 </div>
      		</c:forEach>
@@ -227,7 +226,7 @@
       </div>
       <div class="modal-body">
           <div class="col-md-12 text-center">
-            <form class="form col-md-12 center-block signUpForm" action="register" method="post">                     
+            <form class="form col-md-12 center-block uploadForm" action="upload" method="post" enctype="multipart/form-data">                     
             <div class="form-group">
               <input class="form-control input-lg" type="file" name="files" multiple="multiple">
               <input type="hidden" name="upath" value="${login.upath }">

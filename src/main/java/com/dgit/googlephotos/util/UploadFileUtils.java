@@ -40,10 +40,10 @@ public class UploadFileUtils {
 		String dateStr = sdf.format(date); 
 		String savedName = dateStr+"_"+originalName;
 		
-		File target = new File(uploadPath+uid, savedName); //외부 경로에 파일 생성
+		File target = new File(uploadPath+"/"+uid, savedName); //외부 경로에 파일 생성
 		FileCopyUtils.copy(fileData, target);//업로드
 		
-		String thumbFile = UploadFileUtils.makeThumbnail(uploadPath+uid, savedName);
+		String thumbFile = UploadFileUtils.makeThumbnail(uploadPath+"/"+uid, savedName);
 		
 		return uid+"/"+thumbFile;
 		
