@@ -90,11 +90,10 @@
 	    	 <c:forEach var="filename" items="${fileList }">
 		     	<div class="col-sm-4 imgCard">      
 			       <div class="panel panel-default">
-			        <c:set var="bigImg" value="${login.uid}/${filename }"></c:set>
-			       
+			        <c:set var="bigImg" value="${login.uid}/${filename }"></c:set>			       
 			          <div class="panel-thumbnail">
 			          <c:set var="fnItem" value="${login.uid}/s_${filename }"></c:set>
-			           	<a href="displayFile?filename=${bigImg }">
+			           	<a href="displayFile?filename=${bigImg }" target="_blank">
 			          		<img src="displayFile?filename=${fnItem }" class="img-responsive" style="width: 100%;">
 			          	</a>			          	
 			          </div>
