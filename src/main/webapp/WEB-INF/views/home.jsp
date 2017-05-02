@@ -91,10 +91,12 @@
 		     	<div class="col-sm-4 imgCard">      
 			       <div class="panel panel-default">
 			        <c:set var="bigImg" value="${login.uid}/${filename }"></c:set>
-			        <a href="displayFile?filename=${bigImg }">
+			       
 			          <div class="panel-thumbnail">
 			          <c:set var="fnItem" value="${login.uid}/s_${filename }"></c:set>
-			          	<img src="displayFile?filename=${fnItem }" class="img-responsive" style="width: 100%;">			          	
+			           	<a href="displayFile?filename=${bigImg }">
+			          		<img src="displayFile?filename=${fnItem }" class="img-responsive" style="width: 100%;">
+			          	</a>			          	
 			          </div>
 	         		  <c:set var="fnArr" value="${fn:split(filename, '_')}" />     					
 			          <div class="panel-body">
@@ -107,7 +109,7 @@
 		          		</c:forEach>
 		          		<button class="btn delCard" style="float: right;" value="${filename }">Delete</button>		          		 
 			          </div>
-			         </a>
+			         
 			        </div>        
 	     		 </div>
      		</c:forEach>
@@ -302,6 +304,11 @@ $('.searchId').click(function() {
 		
 	});
 	
+});
+$('.delCard').each(function(i, element) {
+	$(element).click(function() {
+		$('.imgCard').eq(i).remove();	
+	});
 });
 </script>
 </html>
