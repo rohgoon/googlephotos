@@ -206,4 +206,16 @@ public class HomeController {
 		
 		return map;
 	}
+	@RequestMapping(value="/delCard", method=RequestMethod.GET)
+	public void delCardGET(String filename,Model model,HttpServletResponse response,HttpServletRequest request) throws Exception{
+		
+		HttpSession session = request.getSession();
+		if (session.getAttribute(LoginInterceptor.LOGIN) != null) {
+			UserVO vo = (UserVO) session.getAttribute(LoginInterceptor.LOGIN);
+			File bf = new File(vo.getUpath()+"/"+filename);
+			File tf = new File(vo.getUpath()+"/s_"+filename);
+			bf.delete();
+			tf.delete();
+		}
+	}
 }

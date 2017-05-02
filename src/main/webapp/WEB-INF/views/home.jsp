@@ -306,7 +306,24 @@ $('.searchId').click(function() {
 });
 $('.delCard').each(function(i, element) {
 	$(element).click(function() {
-		$('.imgCard').eq(i).remove();	
+		//
+		var filename = $(element).val();
+		var cf = confirm('정말로 삭제 하시겠습니까?');
+		if(cf){
+			$('.imgCard').eq(i).remove();
+			$.ajax({
+				url: "${pageContext.request.contextPath}/delCard",
+				type: "get",
+				data:{"filename":filename},
+				dataType: "json",
+				success:function(res){					
+					return true;	
+				}
+			});
+		}else{
+			return false;
+		}
+		
 	});
 });
 </script>
