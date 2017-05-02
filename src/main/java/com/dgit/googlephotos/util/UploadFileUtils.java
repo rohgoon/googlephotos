@@ -36,7 +36,7 @@ public class UploadFileUtils {
 		
 		
 		Date date = new Date();
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd_hh:mm:ss");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd_hhmmss");
 		String dateStr = sdf.format(date); 
 		String savedName = dateStr+"_"+originalName;
 		

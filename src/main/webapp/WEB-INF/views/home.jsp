@@ -2,6 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -71,7 +72,7 @@
 		<div class="guestMod"></div>
 	</c:if>
 	<c:if test="${!empty login}">
-		<c:if test="${empty fileList || fileList.length == 0}">			
+		<c:if test="${empty fileList}">			
 		 <!-- no image default-->	
 			<div class="col-sm-4 noimg" style="margin: 0 auto; float: inherit !important;">      
 	        <div class="panel panel-default">
@@ -86,23 +87,28 @@
 	      </div>
 	     </c:if>  
 	     <c:if test="${!empty fileList }"> <!-- uid+"/s_"+filename, s_일시_시간_원본파일명-->
-	     <c:forEach var="filename" items="${fileList }"></c:forEach>
-	     	<div class="col-sm-4">      
-		        <div class="panel panel-default">
-		          <div class="panel-thumbnail">
-		          <c:set var="thumbFile" value="${login.uid}/s_${filename }"></c:set>
-		          	<img src="displayFile?filename=${thumbFile }" class="img-responsive">
-		          </div>
-		          <%
-		          	String fStr = "${filename}";
-		          	String[] fsArr = fStr.split("_");
-		          %>
-		          <div class="panel-body">
-		            <p class="lead"><%=fsArr[3] %></p>
-		            <p><%=fsArr[1] %>, <%=fsArr[2] %></p>            
-		          </div>
-		        </div>        
-     		 </div>
+	    	 <c:forEach var="filename" items="${fileList }">
+		     	<div class="col-sm-4">      
+			        <div class="panel panel-default">
+			          <div class="panel-thumbnail">
+			          <c:set var="fnItem" value="${login.uid}/s_${filename }"></c:set>
+			          	<img src="displayFile?filename=${fnItem }" class="img-responsive" style="width: 100%;">			          	
+			          </div>
+	         		  <c:set var="fnArr" value="${fn:split(filename, '_')}" />     					
+			          <div class="panel-body">
+			          	<c:forEach var="fname" items="${fnArr }" varStatus="g">
+		          		  <c:if test="${g.count == 3}"><p class="lead">${fname}</p></c:if>
+		          		</c:forEach>
+		          		<c:forEach var="fname" items="${fnArr }" varStatus="g">
+		          		  <c:if test="${g.count == 1}"><p>Date : ${fname}</p></c:if>
+		          		</c:forEach>
+		          		<c:forEach var="fname" items="${fnArr }" varStatus="g">
+		          		  <c:if test="${g.count == 2}"><p><small>Time : ${fname}</small></p></c:if>
+		          		</c:forEach>			                     
+			          </div>
+			        </div>        
+	     		 </div>
+     		</c:forEach>
 	     </c:if>	
 	</c:if>	  
      <!-- <div class="col-sm-4">
@@ -221,6 +227,7 @@
             <form class="form col-md-12 center-block signUpForm" action="register" method="post">                     
             <div class="form-group">
               <input class="form-control input-lg" type="file" name="files" multiple="multiple">
+              <input type="hidden" name="upath" value="${login.upath }">
             </div>
             <div class="form-group">
               <button class="btn btn-primary btn-lg btn-block">Upload</button>              

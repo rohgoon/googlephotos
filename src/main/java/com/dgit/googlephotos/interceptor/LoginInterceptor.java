@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-import com.dgit.googlephotos.interceptor.LoginInterceptor;
+import com.dgit.googlephotos.domain.UserVO;
 
 public class LoginInterceptor extends HandlerInterceptorAdapter{
 	public static final String LOGIN = "login";	
@@ -35,14 +35,14 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 			ModelAndView modelAndView) throws Exception {
 		LOGGER.info("post Handle..........");
 		HttpSession session = request.getSession();
-		LOGGER.info("modelAndView:" +modelAndView+"..........");
-		LOGGER.info("getModel : " +modelAndView.getModel()+"..........");
-		Object userVO = modelAndView.getModel().get("userVO");
+		UserVO userVO = (UserVO) modelAndView.getModel().get("userVO");		
 		if (userVO != null) {
 			LOGGER.info("new login success..........");
+			LOGGER.info("UserVO.........."+userVO.toString());
 			session.setAttribute(LOGIN, userVO);
 			Object dest = session.getAttribute("dest");
 			String path = dest!=null?(String)dest:request.getContextPath();
+			
 			response.sendRedirect(path); //home
 			
 		}

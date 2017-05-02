@@ -57,35 +57,51 @@ public class HomeController {
 	 * Simply selects the home view to render by returning its name.
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Locale locale, Model model) {
+	public String home(Locale locale, Model model,HttpServletResponse response,HttpServletRequest request) {
 		logger.info("Welcome home! The client locale is {}.", locale);
 		
-		Date date = new Date();
-		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
 		
-		String formattedDate = dateFormat.format(date);
-		
-		model.addAttribute("serverTime", formattedDate );
+		HttpSession session = request.getSession();
+		if (session.getAttribute(LoginInterceptor.LOGIN) != null) {
+			UserVO vo = (UserVO) session.getAttribute(LoginInterceptor.LOGIN);
+			File f = new File(vo.getUpath()); 
+			File [] files = f.listFiles(); //uid+"s_"+filename
+			List<String> renames = new ArrayList<>();
+			for (File file : files) {
+				String str = file.getPath();
+				String[] rnArr = str.split("\\\\");
+				if (rnArr[rnArr.length-1].split("_").length == 3) {
+					renames.add(rnArr[rnArr.length-1]);
+				}				
+			}
+			logger.info("files...."+files[0].getPath());
+			logger.info("renames...."+renames);
+			model.addAttribute("fileList", renames);
+		}
 		
 		return "home";
 	}
 	@RequestMapping(value="/login", method=RequestMethod.POST)
 	public String loginPOST(UserVO dto, Model model,HttpServletResponse response,HttpServletRequest request) throws Exception{
 		logger.info("login POST....");
+		logger.info("UserVO dto...."+dto.toString());
 		UserVO vo = service.login(dto);
 		
 		if (vo == null) {
 			logger.info("login is null....");
+			HttpSession session = request.getSession();
+			if (session.getAttribute(LoginInterceptor.LOGIN) != null) {
+				session.removeAttribute(LoginInterceptor.LOGIN);				
+				logger.info("clear login data..........");
+			}
 			return "home";
-		}		
+		}
 		model.addAttribute("userVO", vo);
 		logger.info("addAttribute login....");
 		//response.sendRedirect(request.getContextPath()+"/");
 		//로그인시 폴더 이미지파일 불러오기.
-		File f = new File(vo.getUpath()); 
-		File [] files = f.listFiles(); //uid+"s_"+filename		
-		request.setAttribute("fileList", files);
-		return "";
+		
+		return "login";
 	}
 	@RequestMapping(value="/logout", method=RequestMethod.GET)
 	public void logoutGET(HttpServletResponse response,HttpServletRequest request) throws IOException{
@@ -101,12 +117,14 @@ public class HomeController {
 	}
 	//upload
 	@RequestMapping(value="/upload", method=RequestMethod.POST)
-	public String multiUploadResult(@ModelAttribute("userVo") UserVO vo, List<MultipartFile> files, HttpServletRequest request, Model model) throws Exception{
-		File dir = new File(uploadPath + "/"+vo.getUid());
-		if (!dir.exists()) {
-			dir.mkdirs();
+	public String multiUploadResult(List<MultipartFile> files,HttpServletResponse response, HttpServletRequest request, Model model) throws Exception{
+		//
+		UserVO vo =new UserVO();
+		HttpSession session = request.getSession();
+		if (session.getAttribute(LoginInterceptor.LOGIN) != null) {
+			vo = (UserVO) session.getAttribute(LoginInterceptor.LOGIN);
+			
 		}
-		
 		for (MultipartFile file : files) {
 			logger.info(file.getOriginalFilename());
 			logger.info(file.getSize()+"");
@@ -123,10 +141,14 @@ public class HomeController {
 			thumbFiles.add(thumbFile);
 			
 		}
+		File f = new File(vo.getUpath()); 
+		File [] fileList = f.listFiles(); //uid+"s_"+filename		
+		model.addAttribute("fileList", fileList);
+		
 		model.addAttribute("files", fileNames);
 		model.addAttribute("thumbFiles", thumbFiles);
 		
-		return "";
+		return "home";
 	}
 	@ResponseBody
 	@RequestMapping("/displayFile")
