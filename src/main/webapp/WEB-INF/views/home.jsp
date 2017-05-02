@@ -137,7 +137,8 @@
   <div class="modal-content">
       <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-          <h2 class="text-center"><img src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=100" class="img-circle"><br>Login</h2>
+          <!-- <h2 class="text-center"><img src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=100" class="img-circle"><br>Login</h2> -->
+          <h2 class="text-center"><img src="${pageContext.request.contextPath}/resources/images/photo.jpg" style="width: 100px;" class="img-circle"><br>Login</h2>
       </div>
       <div class="modal-body">
           <form class="form col-md-12 center-block loginForm" action="login" method="post">
@@ -275,7 +276,6 @@ $('.searchId').click(function() {
 		contentType: "application/json",
 		success:function(res){
 			if(res.checkId == "0"){
-				alert(res.checkId);
 				alert("사용 가능한 아이디 입니다.");
 			}else{
 				$('#idInput').val("");
