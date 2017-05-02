@@ -88,8 +88,8 @@
 	     </c:if>  
 	     <c:if test="${!empty fileList }"> <!-- uid+"/s_"+filename, s_일시_시간_원본파일명-->
 	    	 <c:forEach var="filename" items="${fileList }">
-		     	<div class="col-sm-4">      
-			        <div class="panel panel-default">
+		     	<div class="col-sm-4 imgCard">      
+			       <div class="panel panel-default">
 			        <c:set var="bigImg" value="${login.uid}/${filename }"></c:set>
 			        <a href="displayFile?filename=${bigImg }">
 			          <div class="panel-thumbnail">
@@ -102,11 +102,10 @@
 		          		  <c:if test="${g.count == 3}"><p class="lead">${fname}</p></c:if>
 		          		</c:forEach>
 		          		<c:forEach var="fname" items="${fnArr }" varStatus="g">
-		          		  <c:if test="${g.count == 1}"><p>Date : ${fname}</p></c:if>
+		          		 <c:if test="${g.count == 1}">Date : ${fname} </c:if>
+		          		 <c:if test="${g.count == 2}"><small>Time : ${fname}</small></c:if>
 		          		</c:forEach>
-		          		<c:forEach var="fname" items="${fnArr }" varStatus="g">
-		          		  <c:if test="${g.count == 2}"><p><small>Time : ${fname}</small></p></c:if>
-		          		</c:forEach>			                     
+		          		<button class="btn delCard" style="float: right;" value="${filename }">Delete</button>		          		 
 			          </div>
 			         </a>
 			        </div>        
