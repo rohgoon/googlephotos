@@ -50,7 +50,13 @@
             <!-- 갤러리버튼 -->
              <li><a href="#" id="btnToggle"><i class="glyphicon glyphicon-th-large"></i></a></li>
             <!-- 업로드 버튼 -->
-            <li><a href="#uploadModal" role="button" data-toggle="modal"><i class="glyphicon glyphicon-cloud-upload"></i></a></li>
+            <c:if test="${!empty login}">
+            	<li><a href="#uploadModal" role="button" data-toggle="modal"><i class="glyphicon glyphicon-cloud-upload"></i></a></li>
+            </c:if>
+            <c:if test="${empty login}">
+            	<li><a href="#" role="button" id="disalbleUp"><i class="glyphicon glyphicon-cloud-upload"></i></a></li>
+            </c:if>
+            
             <!-- 로그인 버튼 -->
             <li>
            		<c:if test="${empty login }">
@@ -345,5 +351,8 @@ $(document).on('click', '.browse', function(){
 $(document).on('change', '.file', function(){
 	  $(this).parent().find('.form-control').val($(this).val().replace(/C:\\fakepath\\/i, ''));
 	 });
+$(document).on("click", "#disalbleUp", function() {
+	alert("로그인을 하셔야 사용하실 수 있습니다.");
+});
 </script>
 </html>
