@@ -19,4 +19,7 @@
  	<select id="login" resultType="UserVO">
 		select * from user where uid = #{uid} and upassword = #{upassword}
 	</select>
+	<select id="searchId" resultType="int">
+		select count(uid) from user where uid=#{uid}
+	</select>
 </mapper>
