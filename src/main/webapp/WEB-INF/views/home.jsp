@@ -1,6 +1,8 @@
+<%@page import="java.io.File"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,6 +18,11 @@
 		height: 600px;
 		background: url("${pageContext.request.contextPath}/resources/images/guestbg2.png") no-repeat center;
 		background-size: contain;
+	}
+	
+	.file {
+	  visibility: hidden;
+	  position: absolute;
 	}
 </style>
 </head>
@@ -43,7 +50,13 @@
             <!-- 갤러리버튼 -->
              <li><a href="#" id="btnToggle"><i class="glyphicon glyphicon-th-large"></i></a></li>
             <!-- 업로드 버튼 -->
-            <li><a href="#uploadModal" role="button" data-toggle="modal"><i class="glyphicon glyphicon-cloud-upload"></i></a></li>
+            <c:if test="${!empty login}">
+            	<li><a href="#uploadModal" role="button" data-toggle="modal"><i class="glyphicon glyphicon-cloud-upload"></i></a></li>
+            </c:if>
+            <c:if test="${empty login}">
+            	<li><a href="#" role="button" id="disalbleUp"><i class="glyphicon glyphicon-cloud-upload"></i></a></li>
+            </c:if>
+            
             <!-- 로그인 버튼 -->
             <li>
            		<c:if test="${empty login }">
@@ -69,37 +82,49 @@
 	<c:if test="${empty login }">		
 		<div class="guestMod"></div>
 	</c:if>
-	<c:if test="${!empty login}">		
-		<div class="col-sm-4 noimg" style="margin: 0 auto; float: inherit !important;">      
-        <div class="panel panel-default">
-          <div class="panel-thumbnail">
-          	<img src="${pageContext.request.contextPath}/resources/images/noimg.png" class="img-responsive">
-          </div>
-          <div class="panel-body">
-            <p class="lead">저장된 이미지가 없습니다.</p>
-            <p>업로드 아이콘을 클릭하여 이미지를 넣어 주세요.</p>
-          </div>
-        </div>
-      </div>
-	</c:if>
-	<%-- 
-     <!-- no image default-->
-      <div class="col-sm-4 noimg" style="margin: 0 auto; float: inherit !important;">      
-        <div class="panel panel-default">
-          <div class="panel-thumbnail">
-          	<img src="${pageContext.request.contextPath}/resources/images/noimg.png" class="img-responsive">
-          </div>
-          <div class="panel-body">
-            <p class="lead">저장된 이미지가 없습니다.</p>
-            <p>업로드 아이콘을 클릭하여 이미지를 넣어 주세요.</p>
-          </div>
-        </div>
-      </div>
-       --%>
-      
-      
+	<c:if test="${!empty login}">
+		<c:if test="${empty fileList}">			
+		 <!-- no image default-->	
+			<div class="col-sm-4 noimg" style="margin: 0 auto; float: inherit !important;">      
+	        <div class="panel panel-default">
+	          <div class="panel-thumbnail">
+	          	<img src="${pageContext.request.contextPath}/resources/images/noimg.png" class="img-responsive">
+	          </div>
+	          <div class="panel-body">
+	            <p class="lead">저장된 이미지가 없습니다.</p>
+	            <p>업로드 아이콘을 클릭하여 이미지를 넣어 주세요.</p>
+	          </div>
+	        </div>
+	      </div>
+	     </c:if>  
+	     <c:if test="${!empty fileList }"> <!-- uid+"/s_"+filename, s_일시_시간_원본파일명-->
+	    	 <c:forEach var="filename" items="${fileList }">
+		     	<div class="col-sm-4 imgCard">      
+			       <div class="panel panel-default">
+			        <c:set var="bigImg" value="${login.uid}/${filename }"></c:set>			       
+			          <div class="panel-thumbnail">
+			          <c:set var="fnItem" value="${login.uid}/s_${filename }"></c:set>
+			           	<a href="displayFile?filename=${bigImg }" target="_blank">
+			          		<img src="displayFile?filename=${fnItem }" class="img-responsive" style="width: 100%;">
+			          	</a>			          	
+			          </div>
+	         		  <c:set var="fnArr" value="${fn:split(filename, '_')}" />     					
+			          <div class="panel-body">
+			          	<c:forEach var="fname" items="${fnArr }" varStatus="g">
+		          		  <c:if test="${g.count == 3}"><p class="lead">${fname}</p></c:if>
+		          		</c:forEach>
+		          		<c:forEach var="fname" items="${fnArr }" varStatus="g">
+		          		 <c:if test="${g.count == 1}">Date : ${fname} </c:if>
+		          		 <c:if test="${g.count == 2}"><small>Time : ${fname}</small></c:if>
+		          		</c:forEach>
+		          		<button class="btn delCard" style="float: right;" value="${filename }">Delete</button>		          		 
+			          </div>			         
+			        </div>        
+	     		 </div>
+     		</c:forEach>
+	     </c:if>	
+	</c:if>	  
      <!-- <div class="col-sm-4">
-      
         <div class="panel panel-default">
           <div class="panel-thumbnail">
           	<img src="/assets/example/bg_4.jpg" class="img-responsive">
@@ -109,10 +134,7 @@
             <p>1,200 Followers, 83 Posts</p>            
           </div>
         </div>
-
-        
-      </div>/col -->
-    
+      </div>/col -->    
     <br>
     <!-- footer -->
     <div class="clearfix"></div>
@@ -137,7 +159,8 @@
   <div class="modal-content">
       <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-          <h2 class="text-center"><img src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=100" class="img-circle"><br>Login</h2>
+          <!-- <h2 class="text-center"><img src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=100" class="img-circle"><br>Login</h2> -->
+          <h2 class="text-center"><img src="${pageContext.request.contextPath}/resources/images/photo.jpg" style="width: 100px;" class="img-circle"><br>Login</h2>
       </div>
       <div class="modal-body">
           <form class="form col-md-12 center-block loginForm" action="login" method="post">
@@ -173,8 +196,8 @@
       <div class="modal-body">
           <form class="form col-md-12 center-block signUpForm" action="register" method="post">
             <div class="input-group" style="margin-bottom: 15px;">
-              <input class="form-control input-lg" placeholder="ID" type="text" name="uid">
-              <span class = "input-group-addon">중복 검색</span>
+              <input class="form-control input-lg" placeholder="ID" type="text" name="uid" id="idInput">
+              <span class = "bnt input-group-addon searchId">중복 검색</span>
             </div>
             <div class="form-group">
               <input class="form-control input-lg" placeholder="Name" type="text" name="uname">
@@ -204,25 +227,36 @@
   </div>
   </div>
 </div>
-
-
-<!--about modal은 업로드 modal로 수정예정-->
+<!-- uploadModal -->
 <div id="uploadModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog">
   <div class="modal-content">
       <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-          <h2 class="text-center">About</h2>
+          <h2 class="text-center">Upload</h2>
       </div>
       <div class="modal-body">
           <div class="col-md-12 text-center">
-            <a href="http://bootply.com/90113">This Bootstrap Template</a><br>was made with <i class="glyphicon glyphicon-heart"></i> by <a href="http://bootply.com/templates">Bootply</a>
-            <br><br>
-            <a href="https://github.com/iatek/bootstrap-google-plus">GitHub Fork</a>
-          </div>
+            <form class="form col-md-12 center-block uploadForm" action="upload" method="post" enctype="multipart/form-data"> 
+            <input type="hidden" name="upath" value="${login.upath }">            
+             <div class="form-group">
+			    <input type="file" name="files" class="file"  multiple="multiple">
+			    <div class="input-group col-xs-12" style="padding: 0;">
+			      <span class="input-group-addon"><i class="glyphicon glyphicon-picture"></i></span>
+			      <input type="text" class="form-control input-lg" disabled placeholder="Upload Image">
+			      <span class="input-group-btn">
+			        <button class="browse btn btn-primary input-lg" type="button"><i class="glyphicon glyphicon-search"></i> Browse</button>
+			      </span>
+			    </div>
+			  </div>            
+            <div class="form-group">
+              <button class="btn btn-primary btn-lg btn-block">Upload</button>              
+            </div>
+          </form>
+         </div>
       </div>
       <div class="modal-footer">
-          <button class="btn" data-dismiss="modal" aria-hidden="true">OK</button>
+          <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
       </div>
   </div>
   </div>
@@ -259,6 +293,67 @@ $('.signUp').click(function() {//signUpForm 예외처리
 		$('#suEmail').focusin;
 		return false;
 	}
+});
+$('.searchId').click(function() {
+	var uid = $('#idInput').val();
+	if(uid == ""){
+		alert("아이디를 먼저 입력해 주세요.");
+		$('#idInput').focusin;
+		return false;
+	}
+	$.ajax({
+		url: "${pageContext.request.contextPath}/searchId",
+		type: "get",
+		data:{"uid":uid},
+		dataType: "json",
+		contentType: "application/json",
+		success:function(res){
+			if(res.checkId == "0"){
+				alert("사용 가능한 아이디 입니다.");
+			}else{
+				$('#idInput').val("");
+				$('#idInput').focusin;
+				alert("이미 존재하는 아이디 입니다.");
+			}
+			return true;
+		}
+		
+	});
+	
+});
+$('.delCard').each(function(i, element) {
+	$(element).click(function() {
+		//
+		var filename = $(element).val();
+		var cf = confirm('정말로 삭제 하시겠습니까?');
+		if(cf){
+			
+			$.ajax({
+				url: "${pageContext.request.contextPath}/delCard",
+				type: "get",
+				data:{"filename":filename},
+				dataType: "json",
+				success:function(res){	
+					$('.imgCard').eq(i).remove();
+					return true;	
+				}
+			});
+		}else{
+			return false;
+		}
+		
+	});
+});
+
+$(document).on('click', '.browse', function(){
+	  var file = $(this).parent().parent().parent().find('.file');
+	  file.trigger('click');
+	});
+$(document).on('change', '.file', function(){
+	  $(this).parent().find('.form-control').val($(this).val().replace(/C:\\fakepath\\/i, ''));
+	 });
+$(document).on("click", "#disalbleUp", function() {
+	alert("로그인을 하셔야 사용하실 수 있습니다.");
 });
 </script>
 </html>

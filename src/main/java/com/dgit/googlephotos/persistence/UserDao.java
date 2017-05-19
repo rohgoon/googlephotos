@@ -8,4 +8,5 @@ public interface UserDao {
 	public UserVO selectUserByInfo(UserVO vo) throws Exception;
 	public void updateUpath(UserVO vo) throws Exception;
 	public UserVO login(UserVO vo) throws Exception;
+	public int searchId(String uid) throws Exception;
 }

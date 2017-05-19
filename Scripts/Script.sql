@@ -4,7 +4,7 @@ create database googlephotos;
 
 -- 회원
 CREATE TABLE user (
-	uno       INTEGER      NOT null, -- 회원번호
+	uno       INTEGER      NOT null auto_increment, -- 회원번호
 	uid       VARCHAR(50)  NOT NULL, -- 아이디
 	uname     VARCHAR(50)  NOT NULL, -- 이름
 	uemail    VARCHAR(100) NULL,     -- 이메일
@@ -13,10 +13,7 @@ CREATE TABLE user (
 );
 
 -- 회원
-ALTER TABLE user
-	ADD
-		
-		PRIMARY KEY (
+ALTER TABLE user add PRIMARY KEY (
 			uno -- 회원번호
 		);
 insert into user(uid, uname, uemail, uphone, upassword)
